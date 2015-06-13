@@ -36,7 +36,6 @@ function avPlot(dfrm::RegressionModel, variable::Symbol)
          layer(xy, x="xs", y="ys", Theme(default_color=color("red")), Geom.line))
 end
 
-sqr(10)
 
 function vif(dfrm::RegressionModel)
     X = dfrm.mf.df[2:end]

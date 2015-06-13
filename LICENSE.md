@@ -1,8 +1,6 @@
-The GLM module is licensed under the MIT License:
+RegTools is licensed under the MIT License:
 
-> Copyright (c) 2012: Douglas Bates and other contributors.
-> 
-> https://github.com/JuliaStats/GLM.jl/contributors
+> Copyright (c) 2012: Muzhou 'Joe' Liang
 > 
 > Permission is hereby granted, free of charge, to any person obtaining
 > a copy of this software and associated documentation files (the
