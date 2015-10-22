@@ -152,7 +152,7 @@ function drop1(dfrm::RegressionModel, scope::AbstractString)
         newaic = AIC(newfit)
         if newaic < aic
             aic = newaic
-            drop = var
+            drop = var[2:end]
             f = fnew
             model = newfit
         end
@@ -161,8 +161,8 @@ function drop1(dfrm::RegressionModel, scope::AbstractString)
         println("No term dropped")
         return drop1(aic, "N/A", dfrm)
     else
-        println("Drop $(drop[2:end]) with AIC = $aic")
-        return drop1(aic, drop, model)
+        println("Drop $drop with AIC = $aic")
+    return drop1(aic, drop, model)
     end
 end
 
