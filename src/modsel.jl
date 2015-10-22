@@ -44,14 +44,14 @@ end
 
 type extractrhs
     rhsarray::Array
-    rhsstring::String
+    rhsstring::AbstractString
 end
 
 
 # Extract the right hand side of a RegressionModel formula
 function extractrhs(dfrm::RegressionModel)
     regressors = dfrm.mf.terms.terms
-    rhsarray = similar(regressors, String)
+    rhsarray = similar(regressors, AbstractString)
     for i in 1:length(regressors)
         rhsarray[i] = string(regressors[i])
         rhsarray[i] = replace(rhsarray[i], " ", "")
@@ -75,17 +75,17 @@ abstract VarSel
 
 type add1 <: VarSel
     aic::Float64
-    add::String
+    add::AbstractString
     model::RegressionModel
 end
 
 type drop1 <: VarSel
     aic::Float64
-    drop::String
+    drop::AbstractString
     model::RegressionModel
 end
 
-function add1(dfrm::RegressionModel, scope::String, data::DataFrame)
+function add1(dfrm::RegressionModel, scope::AbstractString, data::DataFrame)
     # e.g. scope = "X1+X2+X1&X2"
     replace(scope, " ", "") # remove whitespace in scope
     scope = split(scope, "+")
@@ -125,7 +125,7 @@ function add1(dfrm::RegressionModel, scope::String, data::DataFrame)
 end
 
 
-function drop1(dfrm::RegressionModel, scope::String)
+function drop1(dfrm::RegressionModel, scope::AbstractString)
     # e.g. scope = "X1+X2+X1&X2"
     replace(scope, " ", "") # remove whitespace in scope
     scope = split(scope, "+")
@@ -174,8 +174,8 @@ type step <: VarSel
     model::RegressionModel
 end
 
-function step(dfrm::RegressionModel, scope::String, data::DataFrame,
-              direction::String, trace::Bool=false)
+function step(dfrm::RegressionModel, scope::AbstractString, data::DataFrame,
+              direction::AbstractString, trace::Bool=false)
     directions = ["backward", "forward", "both"]
     if ~ (direction in directions)
         error("direction must be one of 'backward', 'forward', or 'both'")
@@ -239,7 +239,7 @@ function step(dfrm::RegressionModel, scope::String, data::DataFrame,
     end
 end
 
-function step(dfrm::RegressionModel, direction::String; trace::Bool=false)
+function step(dfrm::RegressionModel, direction::AbstractString; trace::Bool=false)
     directions = ["backward", "both"]
     if ~ (direction in directions)
         error("If no scope specified, direction must be 'backward' or 'both'")

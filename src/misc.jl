@@ -1,4 +1,4 @@
-function notnull(s::String)
+function notnull(s::AbstractString)
    if s == ""
        return false
    else
